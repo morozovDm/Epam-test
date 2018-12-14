@@ -24,15 +24,20 @@ function createWeatherViewerComponent() {
     let ul = document.getElementById('weatherView');
     for (let i = 0; i < model.length; i++) {
         let li = createDayComponent(model[i]);
-        if (li !== undefined)
+        if (li !== undefined) {
             ul.innerHTML += li;
+        }
     }
 }
 
 function sortModel() {
     model.sort((a, b) => {
-        if (a.date > b.date) return 1;
-        if (a.date < b.date) return -1;
+        if (a.date > b.date) {
+            return 1;
+        }
+        if (a.date < b.date) {
+            return -1;
+        }
     })
 }
 
@@ -40,29 +45,38 @@ function sortModel() {
 function prev() {
     var carousel = document.querySelector('ul');
     let prevMargin = parseInt(window.getComputedStyle(carousel).marginLeft, 10);
-    if (prevMargin < -177)
+    if (prevMargin < -177) {
         carousel.style.marginLeft = (prevMargin + 177) + 'px'
-    else
+    }
+    else {
         carousel.style.marginLeft = '0px'
+    }
 }
 
 function next() {
     var carousel = document.querySelector('ul');
     let prevMargin = parseInt(window.getComputedStyle(carousel).marginLeft, 10);
     let list = document.getElementsByClassName('day');
-    if (prevMargin > -177 * (list.length - 4))
+    if (prevMargin > -177 * (list.length - 4)) {
         carousel.style.marginLeft = (prevMargin - 177) + 'px';
-    else
+    }
+    else {
         carousel.style.marginLeft = -177 * (list.length - 4) + 'px';
+    }
 }
 
 function showTodayWeather() {
     let daysList = document.getElementsByClassName('day');
+    var carousel = document.querySelector('ul');
+    let count = 0;
     for (let day of daysList) {
         if (day.firstChild.innerHTML !== "Сегодня") {
-            next()
+            count++;
         }
-        else return;
+        else {
+            carousel.style.marginLeft = -176 * count + 'px';
+            return;
+        }
     }
 }
 
